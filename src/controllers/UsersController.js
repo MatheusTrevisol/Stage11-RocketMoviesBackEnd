@@ -63,9 +63,13 @@ class UsersController {
       throw new AppError("Este email já está sendo utilizado.");
     }
 
+    if(old_password && !password) {
+      throw new AppError("Por favor informe a nova senha!");
+    }
+
     if(password && !old_password) {
       throw new AppError("Você precisa informar a senha antiga para alterar a senha.")
-    }
+    }    
 
     if(password && old_password) {
       const comparePasswords = await compare(old_password, user.password);
